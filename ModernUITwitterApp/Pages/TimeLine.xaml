@@ -1,0 +1,252 @@
+﻿<UserControl x:Class="ModernUITwitterApp.Pages.TimeLine"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             >
+
+  <UserControl.Resources>
+
+    <ContextMenu x:Key="menuListBox">
+
+      <MenuItem Header="Detail+Reply" Click="replyButtom_Click"/>
+
+      <MenuItem Header="Favorite" Click="favbutton_Click"/>
+
+      <MenuItem Header="Retweet" Click="retbutton_Click"/>
+
+      <MenuItem Header="Link" Click="linkbutton_Click"/>
+
+      <MenuItem x:Name="retFavItem" Header="Retweet+Favorite" Click="retFavItem_Click" />
+      <MenuItem x:Name="muteItem" Header="Mute" Click="muteItem_Click"   />
+
+    </ContextMenu>
+
+  </UserControl.Resources>
+
+  <Grid >
+    
+    
+    <Grid.RowDefinitions>
+      <RowDefinition Height="10*" />
+      <RowDefinition Height="30" />
+      <RowDefinition Height="30" />
+    </Grid.RowDefinitions>
+    
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+
+
+
+
+    <ListView x:Name="listView" VerticalAlignment="Stretch" ItemsSource="{Binding}"  ContextMenu="{DynamicResource menuListBox}" SelectionMode="Single" >
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal">
+            <Image Source="{Binding ProfileImageUrl}" Width="50" Height="50" Stretch="Uniform"></Image>
+            <StackPanel Orientation="Vertical">
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding UserName}" TextWrapping="Wrap" />
+                <TextBlock Text="{Binding ScreenName}" TextWrapping="Wrap"/>
+              </StackPanel>
+              <TextBlock Text="{Binding Text}" TextWrapping="WrapWithOverflow" MaxWidth="280"/>
+              <!--
+              <TextBlock>
+                            <Hyprlink NavigateUri="{Binding Text}">
+                <TextBlock Text="{Binding Text}" />
+            </Hyperlink>    
+                
+              </TextBlock>
+              
+            
+              <TextBlock   MaxWidth="300" Width="Auto">
+                <Hyperlink NavigateUri="{Binding Via}" Name="hlkURL"   RequestNavigate="OpenPageRequestNavigate">
+                     <TextBlock Text="{Binding Via}"/>  
+                </Hyperlink>
+             </TextBlock>
+              <TextBlock Text="{Binding Via}" TextWrapping="WrapWithOverflow" MaxWidth="300"/>-->
+              <TextBlock Text="{Binding Date}" TextWrapping="WrapWithOverflow" MaxWidth="300"/>
+
+              <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding RetweetUser}" TextWrapping="WrapWithOverflow" MaxWidth="300"/>
+                <Image Source="{Binding RetweetUserProfileImageUrl}" Width="30" Height="30" Stretch="Uniform" Margin="10,0,0,0"></Image>
+              </StackPanel>
+              <!-- <TextBlock Text="{Binding Url}" TextWrapping="WrapWithOverflow" MaxWidth="300"/>
+                <TextBlock>
+                  <Hyperlink NavigateUri="{Binding Url}" RequestNavigate="Hyperlink_RequestNavigate">
+                  </Hyperlink>
+                </TextBlock>
+                -->
+            </StackPanel>
+          </StackPanel>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+
+
+
+
+    <StackPanel Orientation="Horizontal" Grid.Row="1">
+          <Button x:Name="loadButtom" Content="Load" Foreground="Black" Click="loadButtom_Click" />
+
+          
+
+          <Button x:Name="tweetboxButtom" Content="Tweet"  Foreground="Black" Click="tweetboxButtom_Click" />
+          <Button x:Name="replyButtom" Content="Detail+Reply"  Foreground="Black" Click="replyButtom_Click"  />
+
+        </StackPanel>
+
+    <StackPanel Orientation="Horizontal" Grid.Row="2">
+      <Button x:Name="favbutton" Content="Favorite" Foreground="Black" Click="favbutton_Click"/>
+      <Button x:Name="retbutton" Content="Retweet"  Foreground="Black" Click="retbutton_Click" />
+      <Button x:Name="userbutton" Content="User"  Foreground="Black" Click="userbutton_Click" />
+      <!--<Button x:Name="mentionbutton" Content="Mention"  Foreground="Black" Click="mentionbutton_Click" />-->
+      <Button x:Name="linkbutton" Content="Link"  Foreground="Black" Click="linkbutton_Click"  />
+          </StackPanel>
+
+
+    <Grid Grid.Column="1">
+
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
+
+      <StackPanel x:Name="replyStackPanel" Visibility="Hidden" Grid.Row="0">
+      <ListView x:Name="replyView"  Margin="0,0,0,0" VerticalAlignment="Stretch" ItemsSource="{Binding}" Foreground="White" MaxHeight="200"  SelectionMode="Single">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+
+            <StackPanel Orientation="Horizontal">
+              <Image Source="{Binding ProfileImageUrl}" Width="50" Height="50" Stretch="Uniform"></Image>
+              <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                  <TextBlock Text="{Binding UserName}" TextWrapping="Wrap" />
+                  <TextBlock Text="{Binding ScreenName}" TextWrapping="Wrap"/>
+                </StackPanel>
+                <TextBlock Text="{Binding Text}" TextWrapping="WrapWithOverflow" MaxWidth="300"/>
+                <TextBlock Text="{Binding Date}" TextWrapping="WrapWithOverflow" MaxWidth="300"/>
+                  <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding RetweetCount}" TextWrapping="WrapWithOverflow" MaxWidth="300"/>
+                    <TextBlock Text="{Binding FavoriteCount}" TextWrapping="WrapWithOverflow" MaxWidth="300"/>
+                  </StackPanel>
+                  
+                </StackPanel>
+            </StackPanel>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+        
+        <ScrollViewer MaxHeight="200" Background="Transparent" HorizontalScrollBarVisibility="Auto">
+          <ListView >
+            <Image x:Name="tweetImage1"  />
+            <Image x:Name="tweetImage2" />
+            <Image x:Name="tweetImage3" />
+            <Image x:Name="tweetImage4" />
+          </ListView>
+        </ScrollViewer>
+        
+        <ScrollViewer MaxHeight="200" >
+          <ListBox x:Name="urlView" ItemsSource="{Binding}">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock  Name="urlToContent" MinWidth="100" Width="Auto">
+                <Hyperlink NavigateUri="{Binding Url}" Name="hlkURL"   RequestNavigate="OpenPageRequestNavigate">
+                     <TextBlock Text="{Binding ExpandedUrl}"/>  
+                </Hyperlink>
+             </TextBlock>
+
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+            
+            
+          </ListBox>
+          
+         <!-- <GridView x:Name="urlView" >
+            <GridViewColumn   Width="Auto" Header="URL" >
+              <GridViewColumn.CellTemplate>
+                <DataTemplate>
+                  <TextBlock  Name="urlToContent" MinWidth="100" Width="Auto">
+                <Hyperlink NavigateUri="{Binding Path=URL}" Name="hlkURL"   RequestNavigate="OpenPageRequestNavigate">
+                     <TextBlock Text="{Binding Path=URL}"/>  
+                </Hyperlink>
+             </TextBlock>
+                </DataTemplate>
+              </GridViewColumn.CellTemplate>
+            </GridViewColumn>         
+          </GridView>-->
+        </ScrollViewer>
+
+        <TextBlock x:Name="translateBox" TextWrapping="Wrap"/>
+        <Button x:Name="transbutton" Content="Translate"  Foreground="Black" Click="transbutton_Click"   />
+
+        <TextBlock x:Name="replyBlock" />
+      <StackPanel Orientation="Horizontal">
+        <TextBox x:Name="replyBox" Width="230" TextWrapping="Wrap" AcceptsReturn="True" MaxLength="140" />
+        <Button x:Name="replyTweetButtom" Content="Reply"  Foreground="Black" Click="replyTweetButtom_Click" />
+          <Button x:Name="replyCloseButtom" Content="Close"  Foreground="Black" Click="replyCloseButtom_Click"  />
+        </StackPanel>
+        <!--<Grid  >
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Image x:Name="tweetImage1" />
+          <Image x:Name="tweetImage2" Grid.Column="1"/>
+          <Image x:Name="tweetImage3" Grid.Row="1"/>
+          <Image x:Name="tweetImage4" Grid.Row="1" Grid.Column="1"/>
+        </Grid>-->
+
+        <!--        <StackPanel Orientation="Horizontal" Height="100">
+          <Image x:Name="tweetImage1"/>
+          <Image x:Name="tweetImage2"/>
+          <Image x:Name="tweetImage3"/>
+          <Image x:Name="tweetImage4"/>
+        </StackPanel>-->
+      </StackPanel>
+
+    <StackPanel x:Name="tweetStackPanel" Visibility="Hidden"  >
+      <TextBlock x:Name="userBlock" />
+      <TextBox x:Name="tweetInputBox" Height="100" AcceptsReturn="True" TextWrapping="Wrap" MaxLength="140" />
+      <StackPanel Orientation="Horizontal">
+        <Button x:Name="tweetButtom" Content="Tweet"  Foreground="Black" Click="tweetButtom_Click" />
+        <Button x:Name="photoButtom" Content="Photo"  Foreground="Black" Click="photoButtom_Click"  />
+          <Button x:Name="closeButtom" Content="Close"  Foreground="Black" Click="closeButtom_Click"   />
+        </StackPanel>
+
+        <ScrollViewer MaxHeight="200" >
+          <ListView >
+            <Image x:Name="sendImage1"  />
+            <Image x:Name="sendImage2" />
+            <Image x:Name="sendImage3" />
+            <Image x:Name="sendImage4" />
+          </ListView>
+        </ScrollViewer>
+
+        <!--  <Grid Height="100" >
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+          </Grid.ColumnDefinitions>
+          <Image x:Name="sendImage1" />
+        <Image x:Name="sendImage2" Grid.Column="1"/>
+        <Image x:Name="sendImage3" Grid.Row="1"/>
+        <Image x:Name="sendImage4" Grid.Row="1" Grid.Column="1"/>
+        </Grid>-->
+      </StackPanel>
+    </Grid>
+
+  </Grid>
+</UserControl>

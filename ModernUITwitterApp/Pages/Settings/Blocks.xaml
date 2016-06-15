@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="ModernUITwitterApp.Pages.Settings.Blocks"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+  <UserControl.Resources>
+
+    <ContextMenu x:Key="menuListBox">
+
+      <MenuItem Header="UnBlock" Click="MenuItem_Click"  />
+
+    </ContextMenu>
+
+  </UserControl.Resources>
+  <Grid Style="{StaticResource ContentRoot}">
+        <ScrollViewer>
+            <StackPanel MinWidth="200">
+        <DataGrid x:Name="blockGrid" >
+
+        </DataGrid>
+        <ListView x:Name="blockList" VerticalAlignment="Stretch" ItemsSource="{Binding}" Foreground="White" ContextMenu="{DynamicResource menuListBox}">
+          <ListView.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal">
+                <Image Source="{Binding ProfileImageUrl}" Width="50" Height="50" Stretch="Uniform"></Image>
+                <StackPanel Orientation="Vertical">
+                  <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding UserName}" TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding ScreenName}" TextWrapping="Wrap"/>
+                  </StackPanel>
+                  <TextBlock Text="{Binding FollowCount}" />
+                  <TextBlock Text="{Binding FavCount}" />
+
+                  <TextBlock Text="{Binding Prof}" TextWrapping="WrapWithOverflow" MaxWidth="300"/>
+                  <TextBlock Text="{Binding FollowerCount}" />
+
+                </StackPanel>
+              </StackPanel>
+            </DataTemplate>
+          </ListView.ItemTemplate>
+
+        </ListView>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

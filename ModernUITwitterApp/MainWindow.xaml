@@ -1,0 +1,33 @@
+﻿<mui:ModernWindow x:Class="ModernUITwitterApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        Title="TwitterApp" IsTitleVisible="True"
+        Icon="Resource/3124_result.ico"
+        ContentSource="/Pages/TimeLine.xaml" KeyUp="ModernWindow_KeyUp">
+
+<mui:ModernWindow.MenuLinkGroups>
+        <mui:LinkGroup x:Name="mainLinkGroup" DisplayName="USER" >
+            <mui:LinkGroup.Links>
+        <mui:Link DisplayName="home" Source="/Pages/TimeLine.xaml" />
+        <mui:Link DisplayName="mention" Source="/Pages/mention.xaml" />
+        <mui:Link DisplayName="user" Source="/Pages/User.xaml" />
+        <mui:Link DisplayName="search" Source="/Pages/Search.xaml" />
+        <mui:Link DisplayName="#nowplaying" Source="/Pages/BasicPage1.xaml" />
+      </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="settings" GroupKey="settings">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="software" Source="/Pages/SettingsPage.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+    </mui:ModernWindow.MenuLinkGroups>
+
+  <mui:ModernWindow.TitleLinks>
+        <mui:Link DisplayName="settings" Source="/Pages/SettingsPage.xaml" />
+        <mui:Link DisplayName="help" Source="http://mui.codeplex.com" />
+    </mui:ModernWindow.TitleLinks>
+  
+
+  
+</mui:ModernWindow>
